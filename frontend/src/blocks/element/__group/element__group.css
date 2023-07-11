@@ -1,0 +1,22 @@
+.element__group {
+    display: flex;
+    max-width: 282px;
+    padding: 22px 20px 22px 21px;
+    margin: 0;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #fff;
+}
+
+@-moz-document url-prefix() {
+    .element__group {
+        align-items: center;
+    }
+}
+
+@media screen and (max-width: 670px) {
+    .element__group {
+        padding-top: 22.75px;
+        padding-bottom: 22.5px;
+    }
+}

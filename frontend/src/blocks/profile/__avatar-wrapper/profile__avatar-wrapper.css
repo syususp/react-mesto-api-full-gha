@@ -1,0 +1,15 @@
+﻿.profile__avatar-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.profile__avatar-wrapper:hover {
+  background-color: #000000;
+  opacity: 0.8;
+  cursor: pointer;
+  border-radius: 50%;
+}
+
+.profile__avatar-wrapper:hover .profile__avatar-edit {
+  opacity: 1;
+}

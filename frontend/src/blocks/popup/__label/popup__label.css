@@ -1,0 +1,23 @@
+.popup__label {
+    margin-bottom: 29.74px;
+    position: relative;
+}
+
+.popup__label:last-of-type {
+    margin-bottom: 48px;
+}
+
+/* @media screen and (max-width: 920px) {
+    .popup__label {
+        margin-bottom: 25px;
+    }
+    .popup__label:last-of-type {
+        margin-bottom: 30px;
+    }
+} */
+
+@media screen and (max-width: 670px) {
+    .popup__label:last-of-type {
+        margin-bottom: 45px;
+    }
+}
