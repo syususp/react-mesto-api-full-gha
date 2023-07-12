@@ -1,4 +1,4 @@
-const BASE_URL = 'https://auth.nomoreparties.co';
+const BASE_URL = 'https://api.syususp.nomoredomains.work';
 
 const getResponseData = (res) => {
   if (!res.ok) {

@@ -3,7 +3,8 @@ class Api {
     this._headers = headers;
   }
 
-  _baseUrl = "https://mesto.nomoreparties.co/v1/cohort-62";
+  // _baseUrl = "https://mesto.nomoreparties.co/v1/cohort-62";
+  _baseUrl = "https://api.syususp.nomoredomains.work";
 
   _request(url, options) {
     return fetch(url, options)
