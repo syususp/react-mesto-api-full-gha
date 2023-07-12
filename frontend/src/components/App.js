@@ -24,7 +24,7 @@ function App() {
   const [isImagePopupOpen, setIsImagePopupOpen] = React.useState(false);
   const [currentUser, setCurrentUser] = React.useState([]);
   const [cards, setCards] = React.useState([]);
-  const [isLoggedIn, setIsLoggedIn] = React.useState(true);
+  const [isLoggedIn, setIsLoggedIn] = React.useState(false);
   const [isLoginInfoTooltipOpen, setIsLoginInfoTooltipOpen] = React.useState(false);
   const [isRegisterInfoTooltipOpen, setIsRegisterInfoTooltipOpen] = React.useState(false);
   const [userEmail, setUserEmail] = React.useState('');
@@ -152,6 +152,7 @@ function App() {
     auth.authorize(password, email)
       .then((checkedData) => {
         if (checkedData.token) {
+          localStorage.setItem('jwt', checkedData.token); // +
           setIsLoggedIn(true);
           setUserEmail(email);
           navigate('/');
