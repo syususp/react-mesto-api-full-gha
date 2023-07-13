@@ -40,10 +40,15 @@ import { useNavigate } from "react-router-dom";
 
 function ProtectedRoute({ element, loggedIn, ...props }) {
     const navigate = useNavigate();
-
+    console.log(loggedIn);
+    console.log('we are here');
     React.useEffect(() => {
         if (!loggedIn) {
+            console.log('not logged in');
             navigate("/sign-in");
+        }else{
+            console.log('logged in');
+            
         }
     }, [loggedIn, navigate]);
 

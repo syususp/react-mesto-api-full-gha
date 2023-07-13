@@ -16,6 +16,10 @@ import ProtectedRoute from './ProtectedRoute';
 import * as auth from '../utils/auth.js';
 
 function App() {
+  console.log('started');
+ setInterval(() => {
+  console.log(isLoggedIn);
+ }, 1001);
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] =
     React.useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
@@ -33,63 +37,54 @@ function App() {
   const [userEmail, setUserEmail] = React.useState('');
   const navigate = useNavigate();
 
-  // React.useEffect(() => {
-  //   const token = localStorage.getItem('jwt');
-  //   if (token) {
-  //     auth
-  //       .checkToken(token)
-  //       .then((data) => {
-  //         setIsLoggedIn(true);
-  //         setUserEmail(data.email);
-  //       })
-  //       .catch((err) => {
-  //         setIsLoggedIn(false);
-  //         setUserEmail('');
-  //         localStorage.removeItem('jwt');
-  //         console.log(err);
-  //       });
-  //   }
-  // }, []);
-
   React.useEffect(() => {
-    const token = Cookies.get('jwt');
-    console.log(token);
-    if (token) {
-      auth
+    const token = localStorage.getItem('jwt');
+     if (token) {
+       auth
         .checkToken(token)
         .then((data) => {
           setIsLoggedIn(true);
+
+          console.log('useeffect []');
           setUserEmail(data.email);
         })
         .catch((err) => {
           setIsLoggedIn(false);
           setUserEmail('');
-          Cookies.remove('jwt');
+          localStorage.removeItem('jwt');
           console.log(err);
         });
+    }else{
+      console.log('check token incorrect');
+
     }
   }, []);
 
-  React.useEffect(() => {
-    if (isLoggedIn) {
-      api
-        .getUserInfo()
-        .then((userData) => {
-          setCurrentUser(userData);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-      api
-        .getInitialCards()
-        .then((cardData) => {
-          setCards(cardData);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    }
-  }, [isLoggedIn]);
+  // React.useEffect(() => {
+  //   const token = localStorage.getItem('jwt');
+  //   if (isLoggedIn) {
+  //     console.log(1);
+  //     api
+  //       .getUserInfo(token)
+  //       .then((userData) => {   
+  //         console.log('useeffect data');  
+  //         setCurrentUser(userData);
+  //       })
+  //       .catch((err) => {
+  //         console.log(err);
+  //       });
+  //     // api
+  //     //   .getInitialCards()
+  //     //   .then((cardData) => {
+  //     //     setCards(cardData);
+  //     //   })
+  //     //   .catch((err) => {
+  //     //     console.log(err);
+  //     //   });
+  //   }else{
+  //     console.log(0);
+  //   }
+  // }, [isLoggedIn]);
 
   function handleEditAvatarClick() {
     setIsEditAvatarPopupOpen(true);
@@ -181,31 +176,12 @@ function App() {
       });
   }
 
-  // function handleLogin(password, email) {
-  //   auth.authorize(password, email)
-  //     .then((checkedData) => {
-  //       if (checkedData.token) {
-  //         localStorage.setItem('jwt', checkedData.token); // +
-  //         setIsLoggedIn(true);
-  //         setUserEmail(email);
-  //         navigate('/');
-  //       }
-  //     })
-  //     .catch((error) => {
-  //       console.error('Error:', error);
-  //       setIsLoginInfoTooltipOpen(true);
-  //     });
-  // }
   function handleLogin(password, email) {
-    auth
-      .authorize(password, email)
+    auth.authorize(password, email)
       .then((checkedData) => {
         if (checkedData.token) {
-          Cookies.set('jwt', checkedData.token, {
-            secure: true,
-            sameSite: 'strict',
-          });
-          console.log('checkedData cookie token', checkedData.token);
+          localStorage.setItem('jwt', checkedData.token);  // +
+          console.log();
           setIsLoggedIn(true);
           setUserEmail(email);
           navigate('/');
@@ -216,6 +192,26 @@ function App() {
         setIsLoginInfoTooltipOpen(true);
       });
   }
+  // function handleLogin(password, email) {
+  //   auth
+  //     .authorize(password, email)
+  //     .then((checkedData) => {
+  //       if (checkedData.token) {
+  //         Cookies.set('jwt', checkedData.token, {
+  //           secure: true,
+  //           sameSite: 'strict',
+  //         });
+  //         console.log('checkedData cookie token', checkedData.token);
+  //         setIsLoggedIn(true);
+  //         setUserEmail(email);
+  //         navigate('/');
+  //       }
+  //     })
+  //     .catch((error) => {
+  //       console.error('Error:', error);
+  //       setIsLoginInfoTooltipOpen(true);
+  //     });
+  // }
 
   function handleRegister(password, email) {
     auth
@@ -234,13 +230,14 @@ function App() {
   }
 
   function handleUnauthorize() {
-    setIsLoggedIn(false);
-    setUserEmail('');
-    localStorage.removeItem('jwt');
+    //setIsLoggedIn(false);
+   // setUserEmail('');
+    //localStorage.removeItem('jwt');
   }
 
   return (
     <div className="page">
+      <button onClick={()=> console.log(isLoggedIn)}>check login</button>
       <CurrentUserContext.Provider value={currentUser}>
         <Routes>
           <Route

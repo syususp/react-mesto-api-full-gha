@@ -4,11 +4,14 @@ class Api {
   }
 
   // _baseUrl = "https://mesto.nomoreparties.co/v1/cohort-62";
-  _baseUrl = "https://api.syususp.nomoredomains.work";
+  // _baseUrl = "https://api.syususp.nomoredomains.work";
+  _baseUrl = "http://localhost:3000";
 
   _request(url, options) {
+ 
     return fetch(url, options)
       .then((res) => {
+     
         if (!res.ok) {
           throw new Error(`Error: ${res.status}`);
         }
@@ -17,15 +20,22 @@ class Api {
   }
 
   getInitialCards() {
+    console.log(this._headers);
     return this._request(`${this._baseUrl}/cards`, {
       headers: this._headers,
     });
   }
 
-  getUserInfo() {
-    return this._request(`${this._baseUrl}/users/me`, {
-      headers: this._headers,
+  getUserInfo(jwtToken) {
+   const {_headers} = createApiHeaders(jwtToken);
+    return this._request(`${this._baseUrl}/users/me`,{
+      headers: _headers
     });
+    // return this._request(`${this._baseUrl}/users/me`,{
+    //   headers: {
+    //     Authorization: `Bearer ${jwtToken}`,
+    //     "Content-Type": "application/json",
+    // }});
   }
 
   setUserInfo(formData) {
@@ -82,8 +92,15 @@ class Api {
   }
 }
 
+const createApiHeaders = (tkn) =>{
+  return  new Api({
+    authorization: `Bearer ${tkn}`,
+    "Content-Type": "application/json",
+  });
+}
+
 const api = new Api({
-  authorization: "ee3c4bcd-72fb-4109-aa2b-1222878553d2",
+  authorization: `Bearer ${localStorage.getItem('jwt')}`,
   "Content-Type": "application/json",
 });
 

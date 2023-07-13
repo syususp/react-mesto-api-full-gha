@@ -4,6 +4,7 @@ import InfoTooltip from './InfoTooltip';
 import UnionError from '../images/Union-error.png';
 
 function Login(props) {
+  console.log('sign-in');
   const [formData, setFormData] = React.useState({
     email: '',
     password: '',

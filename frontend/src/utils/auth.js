@@ -1,4 +1,5 @@
-const BASE_URL = 'https://api.syususp.nomoredomains.work';
+// const BASE_URL = 'https://api.syususp.nomoredomains.work';
+const BASE_URL = 'http://localhost:3000';
 
 const getResponseData = (res) => {
   if (!res.ok) {
@@ -38,6 +39,7 @@ export const authorize = (password, email) => {
 };
 
 export const checkToken = (jwt) => {
+ 
   return fetch(`${BASE_URL}/users/me`, {
     method: 'GET',
     headers: {
@@ -47,6 +49,8 @@ export const checkToken = (jwt) => {
   })
     .then(getResponseData)
     .then((data) => {
-      return data.data;
+   
+
+      return data;
     });
 };
