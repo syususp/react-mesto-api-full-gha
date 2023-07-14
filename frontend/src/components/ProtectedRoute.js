@@ -17,9 +17,7 @@
 //     );
 // }
 
-
 // export default ProtectedRoute;
-
 
 // import React from 'react';
 // import { Navigate, Route } from "react-router-dom";
@@ -34,25 +32,18 @@
 
 // export default ProtectedRoute;
 
-
 import React from 'react';
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 
 function ProtectedRoute({ element, loggedIn, ...props }) {
-    const navigate = useNavigate();
-    console.log(loggedIn);
-    console.log('we are here');
-    React.useEffect(() => {
-        if (!loggedIn) {
-            console.log('not logged in');
-            navigate("/sign-in");
-        }else{
-            console.log('logged in');
-            
-        }
-    }, [loggedIn, navigate]);
+  const navigate = useNavigate();
+  React.useEffect(() => {
+    if (!loggedIn) {
+      navigate('/sign-in');
+    }
+  }, [loggedIn, navigate]);
 
-    return loggedIn ? React.cloneElement(element, props) : null;
+  return loggedIn ? React.cloneElement(element, props) : null;
 }
 
 export default ProtectedRoute;
