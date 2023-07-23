@@ -108,7 +108,6 @@ function App() {
     console.log('isliked?', isLiked);
     console.log('cardData =====', cardData);
     
-    // Choose the correct API method based on whether the card is liked or not
     const apiMethod = isLiked ? api.unlikeCard : api.likeCard;
     
     apiMethod(cardData._id)
